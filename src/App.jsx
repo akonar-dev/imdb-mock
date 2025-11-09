@@ -1,8 +1,9 @@
-import { Link } from "react-router"
+import HeroBanner from "./components/HeroBanner"
 
 function App() {
   return (
     <>
+    <HeroBanner/>
     </>
   )
 }
