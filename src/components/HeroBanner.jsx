@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 
 const HeroBanner = () => {
   const [carouselData, setCarouselData] = useState([]);
+  const [page, setPage] = useState(0);
+  const handlePrevious = () => {
+    if (page === 0) return;
+    setPage(page - 1);
+  };
+  const handleNext = () => {
+    if (page === carouselData.length - 1) return;
+    setPage(page + 1);
+  };
   const fetchPopularMovies = async () => {
     const url =
       "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
@@ -18,6 +27,7 @@ const HeroBanner = () => {
       const res = await fetch(url, options);
       const data = await res.json();
       setCarouselData(data.results);
+      console.log(data.results);
     } catch (error) {
       console.error(error);
     }
@@ -33,17 +43,13 @@ const HeroBanner = () => {
       data-carousel="slide"
     >
       <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-        {carouselData.map((carousel) => {
-          return (
-            <div key={carousel.id} className="" data-carousel-item>
-              <img
-                className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                alt="movie"
-              />
-              <h1>{carousel.title}</h1>
-            </div>
-          );
-        })}
+        <div key={carouselData[page]?.id} className="" data-carousel-item>
+          <img
+            className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+            alt="movie"
+          />
+          <h1>{carouselData[page]?.title}</h1>
+        </div>
       </div>
       <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
         <button
@@ -83,6 +89,7 @@ const HeroBanner = () => {
         ></button>
       </div>
       <button
+        onClick={handlePrevious}
         type="button"
         className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
         data-carousel-prev
@@ -107,6 +114,7 @@ const HeroBanner = () => {
         </span>
       </button>
       <button
+        onClick={handleNext}
         type="button"
         className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
         data-carousel-next
