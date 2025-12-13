@@ -27,7 +27,6 @@ const HeroBanner = () => {
       const res = await fetch(url, options);
       const data = await res.json();
       setCarouselData(data.results);
-      console.log(data.results);
     } catch (error) {
       console.error(error);
     }

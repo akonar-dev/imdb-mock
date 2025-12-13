@@ -15,7 +15,7 @@ const NavBar = () => {
           <Link to="/menu">
             <li className="px-10 text-amber-50">Menu</li>
           </Link>
-          <Link to="/about">
+          <Link to="/watch-list">
             <li className="px-10 text-amber-50">WatchList</li>
           </Link>
         </ul>
